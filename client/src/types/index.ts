@@ -1,10 +1,15 @@
 export interface TabComponentProps {
     tab: number;
-    setTab: (tab: number) => void;
+    handleTabChange: (selectedTab: number) => void;
 }
 
 export interface Todo {
-    id: number;
+    _id: string;
     text: string;
+    completed: boolean;
+}
+
+export interface TodoPayload {
+    text?: string;
     completed: boolean;
 }
