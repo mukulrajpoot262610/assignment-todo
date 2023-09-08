@@ -1,4 +1,3 @@
-// src/controllers/todoController.ts
 import { Request, Response } from 'express';
 import * as todoService from '../services/todo-service';
 import { ITodo } from '../models/todo-model';

@@ -1,4 +1,3 @@
-// src/services/todoService.ts
 import Todo, { ITodo } from '../models/todo-model';
 
 export async function createTodoService(data: ITodo): Promise<ITodo> {
