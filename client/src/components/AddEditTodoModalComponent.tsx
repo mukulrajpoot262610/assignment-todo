@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 import plusIcon from '../assets/plus.svg';
-import { Todo } from '../types';
-import { createTodos } from '../services/api';
-import { toast } from 'react-hot-toast';
 
-interface AddEditTodoModalComponentProps {
-    setShowModal: (showModal: boolean) => void;
-    todos: Todo[];
-    setTodos: (todo: Todo[]) => void;
-}
+import { AddEditTodoModalComponentProps } from '../types';
+import { createTodos, updatedTodos } from '../lib/todoService';
 
-const AddEditTodoModalComponent = ({ setShowModal, setTodos, todos }: AddEditTodoModalComponentProps) => {
-    const [text, setText] = useState<string>('');
+const AddEditTodoModalComponent = ({
+    setShowModal,
+    setTodos,
+    todos,
+    isEdit,
+    setIsEdit,
+}: AddEditTodoModalComponentProps) => {
+    const [text, setText] = useState<string>(isEdit?.text || '');
     const [error, setError] = useState<boolean>(false);
+
+    useEffect(() => {
+        setText(isEdit?.text || '');
+    }, [isEdit]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setError(false);
@@ -25,26 +30,25 @@ const AddEditTodoModalComponent = ({ setShowModal, setTodos, todos }: AddEditTod
             return setError(true);
         }
 
-        try {
-            const { data } = await createTodos({ text: text, completed: false });
-            setTodos([...todos, data.todo]);
-            toast.success(data.msg);
-            setShowModal(false);
-        } catch (err) {
-            toast.error('Server Error');
+        if (isEdit) {
+            await updatedTodos(isEdit.id, { text, completed: false }, todos, setTodos, setShowModal, setIsEdit);
+        } else {
+            await createTodos({ text, completed: false }, todos, isEdit, setTodos, setShowModal, setIsEdit);
         }
+    };
+
+    const handleClose = () => {
+        setIsEdit(undefined);
+        setShowModal(false);
     };
 
     return (
         <>
-            <div
-                className="fixed w-full h-screen top-0 left-0 bg-black opacity-50 z-50"
-                onClick={() => setShowModal(false)}
-            ></div>
+            <div className="fixed w-full h-screen top-0 left-0 bg-black opacity-50 z-50" onClick={handleClose}></div>
             <div className="fixed max-w-sm shadow-2xl w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white z-50 rounded-lg p-6">
                 <div className="flex items-center justify-between">
-                    <h2 className="font-bold text-xl">Add New Todo</h2>
-                    <button className="btn btn-square btn-sm" onClick={() => setShowModal(false)}>
+                    <h2 className="font-bold text-xl">{isEdit ? 'Edit Todo' : 'Add New Todo'}</h2>
+                    <button className="btn btn-square btn-sm" onClick={handleClose}>
                         <img src={plusIcon} className="w-6 h-6 rotate-45" />
                     </button>
                 </div>
