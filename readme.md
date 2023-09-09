@@ -27,9 +27,9 @@ Mention the technologies and tools used in your project, including programming l
 
 1. Clone the repository:
 
-    ```bash
+```bash
     git clone https://github.com/mukulrajpoot262610/assignment-todo
-    ```
+```
 
 2. Install the necessary dependencies
 
@@ -48,3 +48,21 @@ Mention the technologies and tools used in your project, including programming l
 ```bash
     npm run dev
 ```
+
+### Screenshots
+
+![image](https://github.com/mukulrajpoot262610/assignment-todo/assets/73209159/8150f6b9-3269-4f89-9c7d-cbe612b7cd33)
+
+![image](https://github.com/mukulrajpoot262610/assignment-todo/assets/73209159/1775cd88-da2e-48fe-bdae-0e3c8c8be368)
+
+![image](https://github.com/mukulrajpoot262610/assignment-todo/assets/73209159/64956201-6d5e-423b-ac9a-312136035bfd)
+
+![image](https://github.com/mukulrajpoot262610/assignment-todo/assets/73209159/3b6b514c-f6db-4451-8b52-8f0d99b6b941)
+
+![image](https://github.com/mukulrajpoot262610/assignment-todo/assets/73209159/be8d5e62-a196-4a06-907c-5d4a007e1e0a)
+
+
+
+
+
+
