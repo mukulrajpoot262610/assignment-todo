@@ -6,7 +6,7 @@ import HeaderComponent from '../components/HeaderComponent';
 import TodoCardComponent from '../components/TodoCardComponent';
 import AddEditTodoModalComponent from '../components/AddEditTodoModalComponent';
 
-import { Todo } from '../types';
+import { Todo, TodoEditInfo } from '../types';
 import { fetchTodos } from '../lib/todoService';
 
 const TodoApp: React.FC = () => {
@@ -14,7 +14,7 @@ const TodoApp: React.FC = () => {
     const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
     const [tab, setTab] = useState<number>(0);
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [isEdit, setIsEdit] = useState<{ id: string; text: string }>();
+    const [isEdit, setIsEdit] = useState<TodoEditInfo>();
 
     useEffect(() => {
         fetchTodos(setTodos, setFilteredTodos);
@@ -45,9 +45,10 @@ const TodoApp: React.FC = () => {
                         <TodoCardComponent
                             key={todo._id}
                             todo={todo}
-                            setTodos={setFilteredTodos}
                             todos={filteredTodos}
                             handleEdit={handleEdit}
+                            setTodos={setTodos}
+                            setFilteredTodos={setFilteredTodos}
                         />
                     ))
                 ) : (
@@ -67,10 +68,11 @@ const TodoApp: React.FC = () => {
             {showModal && (
                 <AddEditTodoModalComponent
                     setShowModal={setShowModal}
-                    setTodos={setFilteredTodos}
+                    setTodos={setTodos}
                     todos={filteredTodos}
                     isEdit={isEdit}
                     setIsEdit={setIsEdit}
+                    setFilteredTodos={setFilteredTodos}
                 />
             )}
         </div>

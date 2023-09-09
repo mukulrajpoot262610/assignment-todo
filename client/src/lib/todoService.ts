@@ -18,22 +18,35 @@ export async function fetchTodos(setTodos: (todo: Todo[]) => void, setFilteredTo
     }
 }
 
-export async function markTodoComplete(todoId: string, todo: Todo, todos: Todo[], setTodos: (todo: Todo[]) => void) {
+export async function markTodoComplete(
+    todoId: string,
+    todo: Todo,
+    todos: Todo[],
+    setTodos: (todo: Todo[]) => void,
+    setFilteredTodos: (todo: Todo[]) => void
+) {
     try {
         const { data } = await apiUpdateTodos(todoId, { completed: !todo.completed });
         const updatedTodos = todos.map((t) => (t._id === data.todo._id ? data.todo : t));
         setTodos(updatedTodos);
+        setFilteredTodos(updatedTodos);
         toast.success(`${data.todo.completed ? 'Marked Complete' : 'Marked Incomplete'}`);
     } catch (err) {
         toast.error('Server Error');
     }
 }
 
-export async function deleteTodo(todoId: string, todos: Todo[], setTodos: (todo: Todo[]) => void) {
+export async function deleteTodo(
+    todoId: string,
+    todos: Todo[],
+    setTodos: (todo: Todo[]) => void,
+    setFilteredTodos: (todo: Todo[]) => void
+) {
     try {
         await deleteTodos(todoId);
         const updatedTodos = todos.filter((t) => t._id !== todoId);
         setTodos(updatedTodos);
+        setFilteredTodos(updatedTodos);
         toast.success('Deleted Successfully');
     } catch (err) {
         toast.error('An error occurred while deleting.');
@@ -46,12 +59,14 @@ export async function createTodos(
     isEdit: TodoEditInfo | undefined,
     setTodos: (todo: Todo[]) => void,
     setShowModal: (showModal: boolean) => void,
-    setIsEdit: (isEdit: undefined) => void
+    setIsEdit: (isEdit: undefined) => void,
+    setFilteredTodos: (todo: Todo[]) => void
 ) {
     try {
         const { data } = await apiCreateTodos(payload);
         const updatedTodos = todos.map((todo) => (todo._id === data.todo._id ? data.todo : todo));
         setTodos(isEdit ? updatedTodos : [...todos, data.todo]);
+        setFilteredTodos(isEdit ? updatedTodos : [...todos, data.todo]);
         setShowModal(false);
         setIsEdit(undefined);
         toast.success(data.msg);
@@ -66,11 +81,13 @@ export async function updatedTodos(
     todos: Todo[],
     setTodos: (todo: Todo[]) => void,
     setShowModal: (showModal: boolean) => void,
-    setIsEdit: (isEdit: undefined) => void
+    setIsEdit: (isEdit: undefined) => void,
+    setFilteredTodos: (todo: Todo[]) => void
 ) {
     try {
         const { data } = await apiUpdateTodos(todoId, payload);
         setTodos(todos.map((t) => (t._id === data.todo._id ? data.todo : t)));
+        setFilteredTodos(todos.map((t) => (t._id === data.todo._id ? data.todo : t)));
         setShowModal(false);
         setIsEdit(undefined);
         toast.success('Updated Successfully');

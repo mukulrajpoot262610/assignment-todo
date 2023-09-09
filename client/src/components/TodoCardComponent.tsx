@@ -4,13 +4,13 @@ import trashIcon from '../assets/trash.svg';
 
 import { deleteTodo, markTodoComplete } from '../lib/todoService';
 
-const TodoCardComponent = ({ todo, setTodos, todos, handleEdit }: TodoCardProps) => {
+const TodoCardComponent = ({ todo, setTodos, todos, handleEdit, setFilteredTodos }: TodoCardProps) => {
     const handleMarkComplete = async () => {
-        await markTodoComplete(todo._id, todo, todos, setTodos);
+        await markTodoComplete(todo._id, todo, todos, setTodos, setFilteredTodos);
     };
 
     const handleDelete = async () => {
-        await deleteTodo(todo._id, todos, setTodos);
+        await deleteTodo(todo._id, todos, setTodos, setFilteredTodos);
     };
 
     return (
@@ -19,15 +19,16 @@ const TodoCardComponent = ({ todo, setTodos, todos, handleEdit }: TodoCardProps)
                 <input
                     type="checkbox"
                     checked={todo.completed}
-                    className="checkbox mr-2 checkbox-sm"
+                    className="checkbox mr-2 checkbox-sm checkbox-info"
                     onClick={handleMarkComplete}
                 />
                 <p className={`border-l pl-2 border-gray-300 ${todo.completed && 'line-through'}`}>{todo.text}</p>
             </div>
             <div className="flex items-center">
                 <button
-                    className="rounded-lg btn btn-sm btn-ghost border-0"
+                    className="rounded-lg btn btn-sm btn-ghost border-0 disabled:bg-blue-100"
                     onClick={() => handleEdit(todo._id, todo.text)}
+                    disabled={todo.completed}
                 >
                     <img src={editIcon} className="w-5 h-6" />
                 </button>

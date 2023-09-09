@@ -20,6 +20,7 @@ export interface AddEditTodoModalComponentProps {
     setTodos: (todo: Todo[]) => void;
     setShowModal: (showModal: boolean) => void;
     setIsEdit: (editInfo: TodoEditInfo | undefined) => void;
+    setFilteredTodos: (todo: Todo[]) => void;
 }
 
 export interface TabComponentProps {
@@ -32,4 +33,5 @@ export interface TodoCardProps {
     todos: Todo[];
     setTodos: (todo: Todo[]) => void;
     handleEdit: (id: string, text: string) => void;
+    setFilteredTodos: (todo: Todo[]) => void;
 }

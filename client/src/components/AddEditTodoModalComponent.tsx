@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import plusIcon from '../assets/plus.svg';
+import checkIcon from '../assets/check.svg';
 
 import { AddEditTodoModalComponentProps } from '../types';
 import { createTodos, updatedTodos } from '../lib/todoService';
@@ -11,6 +12,7 @@ const AddEditTodoModalComponent = ({
     todos,
     isEdit,
     setIsEdit,
+    setFilteredTodos,
 }: AddEditTodoModalComponentProps) => {
     const [text, setText] = useState<string>(isEdit?.text || '');
     const [error, setError] = useState<boolean>(false);
@@ -31,9 +33,25 @@ const AddEditTodoModalComponent = ({
         }
 
         if (isEdit) {
-            await updatedTodos(isEdit.id, { text, completed: false }, todos, setTodos, setShowModal, setIsEdit);
+            await updatedTodos(
+                isEdit.id,
+                { text, completed: false },
+                todos,
+                setTodos,
+                setShowModal,
+                setIsEdit,
+                setFilteredTodos
+            );
         } else {
-            await createTodos({ text, completed: false }, todos, isEdit, setTodos, setShowModal, setIsEdit);
+            await createTodos(
+                { text, completed: false },
+                todos,
+                isEdit,
+                setTodos,
+                setShowModal,
+                setIsEdit,
+                setFilteredTodos
+            );
         }
     };
 
@@ -63,7 +81,7 @@ const AddEditTodoModalComponent = ({
                             onChange={handleChange}
                             type="text"
                             placeholder="Type here"
-                            className={`input input-bordered w-full ${error && 'input-error'}`}
+                            className={`input input-bordered input-info w-full ${error && 'input-error'}`}
                         />
                         {error && (
                             <label className="label">
@@ -72,9 +90,11 @@ const AddEditTodoModalComponent = ({
                         )}
                     </div>
 
-                    <button className="btn btn-sm mt-4" type="submit">
-                        submit
-                    </button>
+                    <div className="flex justify-center items-center mt-5">
+                        <button className="btn btn-sm btn-ghost hover:bg-white" type="submit">
+                            <img src={checkIcon} className="h-10 w-10" />
+                        </button>
+                    </div>
                 </form>
             </div>
         </>
