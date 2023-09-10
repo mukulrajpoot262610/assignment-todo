@@ -10,6 +10,7 @@
 │   postcss.config.js
 │   README.md
 │   tailwind.config.js
+│   tree.txt
 │   tsconfig.json
 │   tsconfig.node.json
 │   vite.config.ts
@@ -31,20 +32,43 @@
     │       trash.svg
     │
     ├───components
-    │       AddEditTodoModalComponent.tsx
-    │       HeaderComponent.tsx
-    │       TabComponent.tsx
-    │       TodoCardComponent.tsx
+    │   │   HeaderComponent.tsx
+    │   │
+    │   ├───AddEditTodoModal
+    │   │       AddEditTodoModal.tsx
+    │   │       AddEditTodoModal.types.ts
+    │   │       index.ts
+    │   │
+    │   ├───Tab
+    │   │       index.ts
+    │   │       Tab.tsx
+    │   │       Tab.types.ts
+    │   │
+    │   └───TodoCard
+    │           index.ts
+    │           TodoCard.tsx
+    │           TodoCard.types.ts
     │
     ├───helpers
     │       api.ts
     │
     ├───lib
-    │       todoService.ts
+    │   └───todo
+    │       │   index.ts
+    │       │
+    │       └───services
+    │               createTodos.ts
+    │               deleteTodo.ts
+    │               fetchTodos.ts
+    │               markTodoComplete.ts
+    │               updateTodos.ts
     │
     ├───pages
     │       TodoApp.tsx
     │
     └───types
             index.ts
+            Todo.ts
+            TodoEditInfo.ts
+            TodoPayload.ts
 ```
