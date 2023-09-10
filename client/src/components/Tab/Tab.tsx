@@ -1,6 +1,6 @@
-import { TabComponentProps } from '../types';
+import { TabProps } from '.';
 
-const TabComponent = ({ tab, handleTabChange }: TabComponentProps) => {
+const Tab = ({ tab, handleTabChange }: TabProps) => {
     return (
         <div className="flex items-center">
             <div
@@ -23,4 +23,4 @@ const TabComponent = ({ tab, handleTabChange }: TabComponentProps) => {
     );
 };
 
-export default TabComponent;
+export default Tab;

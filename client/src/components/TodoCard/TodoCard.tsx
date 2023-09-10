@@ -1,10 +1,10 @@
-import { TodoCardProps } from '../types';
-import editIcon from '../assets/edit.svg';
-import trashIcon from '../assets/trash.svg';
+import editIcon from '../../assets/edit.svg';
+import trashIcon from '../../assets/trash.svg';
 
-import { deleteTodo, markTodoComplete } from '../lib/todoService';
+import { deleteTodo, markTodoComplete } from '../../lib/todo';
+import { TodoCardProps } from '.';
 
-const TodoCardComponent = ({ todo, setTodos, todos, handleEdit, setFilteredTodos }: TodoCardProps) => {
+const TodoCard = ({ todo, setTodos, todos, handleEdit, setFilteredTodos }: TodoCardProps) => {
     const handleMarkComplete = async () => {
         await markTodoComplete(todo._id, todo, todos, setTodos, setFilteredTodos);
     };
@@ -40,4 +40,4 @@ const TodoCardComponent = ({ todo, setTodos, todos, handleEdit, setFilteredTodos
     );
 };
 
-export default TodoCardComponent;
+export default TodoCard;

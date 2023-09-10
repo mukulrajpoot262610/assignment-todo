@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 
-import plusIcon from '../assets/plus.svg';
-import checkIcon from '../assets/check.svg';
+import plusIcon from '../../assets/plus.svg';
+import checkIcon from '../../assets/check.svg';
 
-import { AddEditTodoModalComponentProps } from '../types';
-import { createTodos, updatedTodos } from '../lib/todoService';
+import { createTodos, updatedTodos } from '../../lib/todo';
+import { AddEditTodoModalProps } from './AddEditTodoModal.types';
 
-const AddEditTodoModalComponent = ({
+const AddEditTodoModal = ({
     setShowModal,
     setTodos,
     todos,
     isEdit,
     setIsEdit,
     setFilteredTodos,
-}: AddEditTodoModalComponentProps) => {
+}: AddEditTodoModalProps) => {
     const [text, setText] = useState<string>(isEdit?.text || '');
     const [error, setError] = useState<boolean>(false);
 
@@ -101,4 +101,4 @@ const AddEditTodoModalComponent = ({
     );
 };
 
-export default AddEditTodoModalComponent;
+export default AddEditTodoModal;

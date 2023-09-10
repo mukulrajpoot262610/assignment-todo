@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import plusIcon from '../assets/plus.svg';
 
-import TabComponent from '../components/TabComponent';
+import { Tab } from '../components/Tab';
+import { TodoCard } from '../components/TodoCard';
 import HeaderComponent from '../components/HeaderComponent';
-import TodoCardComponent from '../components/TodoCardComponent';
-import AddEditTodoModalComponent from '../components/AddEditTodoModalComponent';
+import { AddEditTodoModal } from '../components/AddEditTodoModal';
 
 import { Todo, TodoEditInfo } from '../types';
-import { fetchTodos } from '../lib/todoService';
+import { fetchTodos } from '../lib/todo';
 
 const TodoApp: React.FC = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -37,12 +37,12 @@ const TodoApp: React.FC = () => {
     return (
         <div className="max-w-2xl w-full mx-auto bg-white h-page rounded-lg relative">
             <HeaderComponent />
-            <TabComponent tab={tab} handleTabChange={handleTabChange} />
+            <Tab tab={tab} handleTabChange={handleTabChange} />
 
             <ul className="p-4 flex flex-col gap-3 h-4/6 overflow-auto">
                 {filteredTodos.length > 0 ? (
                     filteredTodos.map((todo) => (
-                        <TodoCardComponent
+                        <TodoCard
                             key={todo._id}
                             todo={todo}
                             todos={filteredTodos}
@@ -66,7 +66,7 @@ const TodoApp: React.FC = () => {
             </div>
 
             {showModal && (
-                <AddEditTodoModalComponent
+                <AddEditTodoModal
                     setShowModal={setShowModal}
                     setTodos={setTodos}
                     todos={filteredTodos}
