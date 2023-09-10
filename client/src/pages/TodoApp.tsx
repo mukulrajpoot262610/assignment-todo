@@ -44,8 +44,9 @@ const TodoApp: React.FC = () => {
                     filteredTodos.map((todo) => (
                         <TodoCard
                             key={todo._id}
+                            tab={tab}
                             todo={todo}
-                            todos={filteredTodos}
+                            todos={todos}
                             handleEdit={handleEdit}
                             setTodos={setTodos}
                             setFilteredTodos={setFilteredTodos}

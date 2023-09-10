@@ -4,9 +4,9 @@ import trashIcon from '../../assets/trash.svg';
 import { deleteTodo, markTodoComplete } from '../../lib/todo';
 import { TodoCardProps } from '.';
 
-const TodoCard = ({ todo, setTodos, todos, handleEdit, setFilteredTodos }: TodoCardProps) => {
+const TodoCard = ({ todo, tab, setTodos, todos, handleEdit, setFilteredTodos }: TodoCardProps) => {
     const handleMarkComplete = async () => {
-        await markTodoComplete(todo._id, todo, todos, setTodos, setFilteredTodos);
+        await markTodoComplete(todo._id, tab, todo, todos, setTodos, setFilteredTodos);
     };
 
     const handleDelete = async () => {
